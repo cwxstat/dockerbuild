@@ -13,8 +13,8 @@ one
 # </docb:>
 		
 `
+
 func TestGrabTab(t *testing.T) {
-	
 
 	type args struct {
 		s        string
