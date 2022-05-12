@@ -1,0 +1,4 @@
+FROM golang:latest AS build
+
+FROM golang:latest AS build
+
