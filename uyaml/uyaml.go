@@ -2,9 +2,11 @@ package uyaml
 
 import (
 	"fmt"
-	"gopkg.in/yaml.v2"
 	"os"
+	"strings"
 	"time"
+
+	"gopkg.in/yaml.v2"
 )
 
 type FilesUpdate struct {
@@ -16,27 +18,27 @@ type Platform struct {
 }
 
 type Spec struct {
-	Timestamp time.Time `yaml:"timestamp,omitempty"`
-	Platform         Platform        `yaml:"platform,omitempty"`
-	Files FilesUpdate `yaml:"changes,omitempty"`
+	Timestamp time.Time   `yaml:"timestamp,omitempty"`
+	Platform  Platform    `yaml:"platform,omitempty"`
+	Files     FilesUpdate `yaml:"changes,omitempty"`
 }
 
-type T struct {
+type TopYaml struct {
 	Image   string `yaml:"image"`
 	Version string `yaml:"version"`
-	Config string `yaml:"local-config,omitempty"`
+	Config  string `yaml:"local-config,omitempty"`
 	Spec    Spec   `yaml:"spec,omitempty"`
 }
 
-func MyTest() {
+func MyTest() string {
 
 	fu := FilesUpdate{
 		Files: []string{"pod.yaml, dev-pod.yaml"},
 	}
-	t := &T{
+	t := &TopYaml{
 		Image:   "ubuntu",
 		Version: "v0.0.1",
-		Config: "~/.docTag/config",
+		Config:  "~/.docTag/config",
 		Spec: Spec{
 			Timestamp: time.Now(),
 			Platform: Platform{
@@ -49,6 +51,43 @@ func MyTest() {
 	if a, err := yaml.Marshal(t); err == nil {
 		fmt.Println(a)
 		os.WriteFile("sample.yaml", []byte(a), 0644)
+		return string(a)
 	}
+	return ""
+}
 
+func AddComments(s string) string {
+	split := strings.Split(s, "\n")
+	newString := ""
+	sep := ""
+	for _, v := range split {
+		if strings.HasPrefix(s, "#") {
+			newString = newString + sep + v
+			sep = "\n"
+			continue
+		}
+		newString = newString + sep + "# " + v
+		sep = "\n"
+	}
+	return newString
+}
+
+func RemoveComments(s string) string {
+	split := strings.Split(s, "\n")
+	newString := ""
+	sep := ""
+	for _, v := range split {
+		if strings.HasPrefix(s, "# ") {
+			newString = newString + sep + v[2:]
+			sep = "\n"
+			continue
+		}
+		if strings.HasPrefix(s, "#") {
+			newString = newString + sep + v[1:]
+			sep = "\n"
+			continue
+		}
+		newString = newString + sep + v
+	}
+	return newString
 }

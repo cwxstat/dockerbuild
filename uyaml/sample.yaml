@@ -2,7 +2,7 @@ image: ubuntu
 version: v0.0.1
 local-config: ~/.docTag/config
 spec:
-  timestamp: 2022-05-12T17:52:08.697505-04:00
+  timestamp: 2022-05-12T19:07:44.723741-04:00
   platform:
     os: linux/amd64
   changes:
