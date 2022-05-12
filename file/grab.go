@@ -51,3 +51,13 @@ func GrabTab(s string, tagBegin, tagEnd string) (string, string, error) {
 	return sub, tag, nil
 
 }
+
+func ReadMiddle(s string) (string, error) {
+	split := strings.Split(s, "\n")
+	if len(split) < 3 {
+		return "", fmt.Errorf("Bad middle: %v", split)
+	}
+	middle := combine(split, 1, len(split)-1)
+	return middle, nil
+
+}
