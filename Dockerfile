@@ -1,7 +1,5 @@
 FROM golang:latest AS build
 
-
-
 WORKDIR /project
 
 # Copy the entire project and build it
