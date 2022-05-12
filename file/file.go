@@ -1,11 +1,9 @@
 package file
 
 import (
-	"fmt"
 	"io/fs"
 	"log"
 	"os"
-	"strings"
 )
 
 type File struct {
