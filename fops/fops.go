@@ -1,9 +1,9 @@
 package fops
 
 import (
-	"github.com/cwxstat/dutil/file"
-	"github.com/cwxstat/dutil/samples"
-	"github.com/cwxstat/dutil/uyaml"
+	"github.com/cwxstat/dopt/file"
+	"github.com/cwxstat/dopt/samples"
+	"github.com/cwxstat/dopt/uyaml"
 )
 
 type FOPS struct {

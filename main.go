@@ -15,7 +15,7 @@ limitations under the License.
 */
 package main
 
-import "github.com/cwxstat/dutil/cmd"
+import "github.com/cwxstat/dopt/cmd"
 
 func main() {
 	cmd.Execute()

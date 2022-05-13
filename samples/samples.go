@@ -5,7 +5,7 @@ import (
 
 	"os"
 
-	img "github.com/cwxstat/dutil/samples/dockerimages"
+	img "github.com/cwxstat/dopt/samples/dockerimages"
 )
 
 var ErrFileExists = errors.New("sample file exists")
