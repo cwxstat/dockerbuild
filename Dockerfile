@@ -41,7 +41,7 @@ ENTRYPOINT ["/bin/project"]
 
 # <docb:
 # image: ubuntu
-# version: v0.0.1
+# version: v0.0.2
 # local-config: ~/.docTag/config
 # spec:
 #   timestamp: 2022-05-13T13:23:23.665896-04:00
@@ -53,4 +53,3 @@ ENTRYPOINT ["/bin/project"]
 # 
 # </docb:
 # 
-
