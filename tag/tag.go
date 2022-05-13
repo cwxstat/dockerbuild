@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/cwxstat/dopt/file"
-	"github.com/cwxstat/dopt/uyaml"
+	"github.com/cwxstat/dopt/yamlst"
 )
 
 var ErrReadTag = errors.New("read tag error")
@@ -14,14 +14,14 @@ var ErrWriteTag = errors.New("write tag error")
 type tag struct {
 	tagBeg string
 	tagEnd string
-	dy     *uyaml.TopYaml
+	dy     *yamlst.TopYaml
 }
 
 func NewTag() *tag {
 	t := &tag{
 		tagBeg: "<docb:",
 		tagEnd: "</docb:",
-		dy:     uyaml.NewDY(),
+		dy:     yamlst.NewDY(),
 	}
 	return t
 }
@@ -30,17 +30,17 @@ func newTag() *tag {
 	t := &tag{
 		tagBeg: "<docb:",
 		tagEnd: "</docb:",
-		dy:     uyaml.NewDY(),
+		dy:     yamlst.NewDY(),
 	}
 	return t
 }
 
-func (t *tag) UpdateDY(dy *uyaml.TopYaml) *tag {
+func (t *tag) UpdateDY(dy *yamlst.TopYaml) *tag {
 	t.dy = dy
 	return t
 }
 
-func (t *tag) Dy() *uyaml.TopYaml {
+func (t *tag) Dy() *yamlst.TopYaml {
 	return t.dy
 }
 
