@@ -2,6 +2,7 @@ package gcp
 
 import (
 	"fmt"
+	"google.golang.org/grpc/status"
 	"testing"
 )
 
@@ -83,6 +84,15 @@ func TestDelete(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if err := Delete(tt.args.name); (err != nil) != tt.wantErr {
+				if st, ok := status.FromError(err); ok {
+
+					if err == ErrNewClient {
+						return
+					}
+					if st.Message() == "Requested entity was not found." {
+						return
+					}
+				}
 				t.Errorf("Delete() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
