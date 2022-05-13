@@ -3,3 +3,5 @@
 
 Perform common docker operations
 
+* GCP API
+* Docker
