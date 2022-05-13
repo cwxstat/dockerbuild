@@ -31,6 +31,10 @@ func (t *tag) UpdateDY(dy *uyaml.TopYaml) *tag {
 	return t
 }
 
+func (t *tag)Dy() *uyaml.TopYaml {
+	return t.dy
+}
+
 func (t *tag) addTagIfNeeded(filename string) error {
 	s, err := file.Read(filename)
 	if err != nil {
@@ -58,7 +62,7 @@ func (t *tag) readTag(filename string) error {
 		return err
 	}
 
-	if _, section, err := file.GrabTag(s, t.tagBeg, t.tagEnd); err != nil {
+	if _, section, err := file.GrabTag(s, t.tagBeg, t.tagEnd); err == nil {
 		err = t.dy.UnMarshal(section)
 		if err != nil {
 			return err
