@@ -12,6 +12,5 @@ func Init(file string) {
 func Update(file string) {
 	t := fops.NewTag()
 	t.Update(file)
-	
 
 }

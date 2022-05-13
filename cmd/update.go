@@ -16,7 +16,6 @@ limitations under the License.
 package cmd
 
 import (
-
 	"github.com/cwxstat/dopt/v1"
 	"github.com/spf13/cobra"
 )
