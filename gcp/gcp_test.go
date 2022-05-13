@@ -17,6 +17,9 @@ func TestMain(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if _, err := Repos("projects/mchirico/locations/us-central1"); err != nil {
+				if err == ErrNewClient {
+					return
+				}
 				t.Errorf("%v\n", err)
 
 			}
@@ -48,6 +51,9 @@ func TestFiles(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := Files(tt.args.parent)
 			if (err != nil) != tt.wantErr {
+				if err == ErrNewClient {
+					return
+				}
 				t.Errorf("Files() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}

@@ -3,10 +3,13 @@ package gcp
 import (
 	artifactregistry "cloud.google.com/go/artifactregistry/apiv1beta2"
 	"context"
+	"errors"
 	"fmt"
 	"google.golang.org/api/iterator"
 	artifactregistrypb "google.golang.org/genproto/googleapis/devtools/artifactregistry/v1beta2"
 )
+
+var ErrNewClient = errors.New("cannot get new client may not have access")
 
 // name "projects/bozo/locations/us-central1"
 func Repos(name string) ([]string, error) {
@@ -14,7 +17,7 @@ func Repos(name string) ([]string, error) {
 	ctx := context.Background()
 	c, err := artifactregistry.NewClient(ctx)
 	if err != nil {
-		return out, err
+		return out, ErrNewClient
 	}
 	defer c.Close()
 
@@ -47,7 +50,7 @@ func Files(parent string) ([]string, error) {
 	ctx := context.Background()
 	c, err := artifactregistry.NewClient(ctx)
 	if err != nil {
-		return out, err
+		return out, ErrNewClient
 	}
 	defer c.Close()
 
