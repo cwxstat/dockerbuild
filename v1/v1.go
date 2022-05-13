@@ -1,16 +1,16 @@
 package v1
 
 import (
-	"github.com/cwxstat/dopt/fops"
+	"github.com/cwxstat/dopt/tag"
 )
 
 func Init(file string) {
-	t := fops.NewTag()
+	t := tag.NewTag()
 	t.AddTagIfNeeded(file)
 }
 
 func Update(file string) {
-	t := fops.NewTag()
+	t := tag.NewTag()
 	t.Update(file)
 
 }
