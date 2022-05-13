@@ -1,8 +1,0 @@
-FROM golang:latest AS build
-
-# <docb:
-# image: spud2
-# version: v0.0.10
-# 
-# </docb:
-# 
