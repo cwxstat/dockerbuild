@@ -26,6 +26,11 @@ func newTag() *tag {
 	return t
 }
 
+func (t *tag) UpdateDY(dy *uyaml.TopYaml) *tag {
+	t.dy = dy
+	return t
+}
+
 func (t *tag) addTagIfNeeded(filename string) error {
 	s, err := file.Read(filename)
 	if err != nil {
@@ -70,8 +75,8 @@ func (t *tag) writeTag(filename string) error {
 	if err != nil {
 		return err
 	}
-	if dockerSection, _, err := file.GrabTag(s, t.tagBeg, t.tagEnd); err != nil {
-		s := dockerSection
+	if dockerSection, _, err := file.GrabTag(s, t.tagBeg, t.tagEnd); err == nil {
+		s := dockerSection + "\n"
 		tag, err := t.dy.CommentsWithTags(t.tagBeg, t.tagEnd)
 		if err != nil {
 			return err
