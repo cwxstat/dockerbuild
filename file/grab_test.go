@@ -44,7 +44,7 @@ func TestGrabTab(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, got1, err := GrabTab(tt.args.s, tt.args.tagBegin, tt.args.tagEnd)
+			got, got1, err := GrabTag(tt.args.s, tt.args.tagBegin, tt.args.tagEnd)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("GrabTab() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -79,7 +79,7 @@ func TestReadMiddle(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_, tag, err := GrabTab(testString, "<docb:", "</docb:")
+			_, tag, err := GrabTag(testString, "<docb:", "</docb:")
 			if err != nil {
 				t.Errorf("ReadMiddle() error = %v, wantErr %v", err, tt.wantErr)
 				return

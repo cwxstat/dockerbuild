@@ -27,7 +27,7 @@ func combine(split []string, startLine, endLine int) string {
 	return s
 }
 
-func GrabTab(s string, tagBegin, tagEnd string) (string, string, error) {
+func GrabTag(s string, tagBegin, tagEnd string) (string, string, error) {
 	split := strings.Split(s, "\n")
 	startLine := 0
 	endLine := 0

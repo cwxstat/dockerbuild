@@ -58,6 +58,15 @@ func (dy *TopYaml) Comments() (string, error) {
 	return addComments(string(a)), nil
 }
 
+func (dy *TopYaml) CommentsWithTags(tagBegin, tagEnd string) (string, error) {
+	a, err := yaml.Marshal(dy)
+	if err != nil {
+		return "", err
+	}
+	s := tagBegin + "\n" + string(a) + "\n" + tagEnd
+	return addComments(s), nil
+}
+
 func (dy *TopYaml) UnMarshal(s string) error {
 	ts := removeComments(s)
 	err := yaml.Unmarshal([]byte(ts), dy)
