@@ -2,15 +2,15 @@ package samples
 
 import (
 	"errors"
-	"fmt"
+	
 	img "github.com/cwxstat/dockerbuild/samples/dockerimages"
 	"os"
 )
-
+var ErrFileExists = errors.New("sample file exists")
 func CreateSample(file string) error {
 	if _, err := os.Stat(file); err == nil {
 		// file exist
-		return fmt.Errorf("File exists: %s", file)
+		return ErrFileExists
 
 	} else if errors.Is(err, os.ErrNotExist) {
 

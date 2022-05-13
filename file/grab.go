@@ -3,16 +3,16 @@ package file
 import (
 	"fmt"
 	"strings"
+	"errors"
 )
-
+var ErrNoTag = errors.New("no tag")
 func find(split []string, tag string) (int, error) {
 	for i, v := range split {
 		if strings.Contains(v, tag) {
 			return i, nil
-			break
 		}
 	}
-	return -1, fmt.Errorf("Tag: %s not found", tag)
+	return -1, ErrNoTag
 }
 
 func combine(split []string, startLine, endLine int) string {
