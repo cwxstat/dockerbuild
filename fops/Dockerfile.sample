@@ -19,12 +19,13 @@ ENTRYPOINT ["/bin/project"]
 # Args to project
 #CMD []
 
+
 # <docb:>
 # image: ubuntu
 # version: v0.0.1
 # local-config: ~/.docTag/config
 # spec:
-#   timestamp: 2022-05-12T22:42:41.850707-04:00
+#   timestamp: 2022-05-12T22:52:26.521715-04:00
 #   platform:
 #     os: linux/amd64
 #   changes:

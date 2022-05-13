@@ -1,7 +1,6 @@
 package fops
 
 import (
-	"fmt"
 	"github.com/cwxstat/dockerbuild/file"
 	"github.com/cwxstat/dockerbuild/samples"
 	"github.com/cwxstat/dockerbuild/uyaml"
@@ -14,20 +13,12 @@ func NewFOPS() *FOPS {
 	return &FOPS{}
 }
 
-func (f *FOPS) Sample() error {
-
-	filename := "Dockerfile.sample"
-	if err := samples.CreateSample(filename); err != nil {
-		if err != samples.ErrFileExists {
-			return err
-		}
-	}
-
+func addTagIfNeeded(filename string) error {
 	s, err := file.Read(filename)
 	if err != nil {
 		return err
 	}
-	if r, tag, err := file.GrabTab(s, "<docb:", "</docb:"); err != nil {
+	if _, _, err := file.GrabTab(s, "<docb:", "</docb:"); err != nil {
 		if err == file.ErrNoTag {
 			dy := uyaml.NewDY()
 			if commentTag, err := dy.Comments(); err == nil {
@@ -39,9 +30,20 @@ func (f *FOPS) Sample() error {
 
 			}
 		}
-		fmt.Println(r, tag)
-	} else {
-		return err
+		return nil
 	}
-	return nil
+	return err
+}
+
+func (f *FOPS) Sample() error {
+
+	filename := "Dockerfile.sample"
+	if err := samples.CreateSample(filename); err != nil {
+		if err != samples.ErrFileExists {
+			return err
+		}
+	}
+
+	return addTagIfNeeded(filename)
+
 }
