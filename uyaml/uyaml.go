@@ -63,7 +63,7 @@ func (dy *TopYaml) CommentsWithTags(tagBegin, tagEnd string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	s := tagBegin + "\n" + string(a) + "\n" + tagEnd
+	s := tagBegin + "\n" + string(a) + "\n" + tagEnd + "\n"
 	return addComments(s), nil
 }
 
