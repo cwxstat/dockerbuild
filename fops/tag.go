@@ -68,6 +68,12 @@ func (t *tag) addTagIfNeeded(filename string) error {
 	return err
 }
 
+func (t *tag) Update(filename string) {
+	t.readTag(filename)
+	t.dy.NextMinor()
+	t.writeTag(filename)
+}
+
 func (t *tag) readTag(filename string) error {
 
 	s, err := file.Read(filename)
