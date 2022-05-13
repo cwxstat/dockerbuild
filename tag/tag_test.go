@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/cwxstat/dopt/uyaml"
+	"github.com/cwxstat/dopt/yamlst"
 )
 
 func Test_tag_writeTag(t *testing.T) {
@@ -40,11 +40,11 @@ func Test_tag_writeTag(t *testing.T) {
 			if err := tr.writeTag(tt.args.filename); (err != nil) != tt.wantErr {
 				t.Errorf("tag.writeTag() error = %v, wantErr %v", err, tt.wantErr)
 			}
-			dy := &uyaml.TopYaml{
+			dy := &yamlst.TopYaml{
 				Image:   "spud2",
 				Version: "v0.0.2",
 				Config:  "",
-				Spec:    uyaml.Spec{},
+				Spec:    yamlst.Spec{},
 			}
 
 			tr.UpdateDY(dy)

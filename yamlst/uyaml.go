@@ -1,4 +1,4 @@
-package uyaml
+package yamlst
 
 import (
 	"fmt"
