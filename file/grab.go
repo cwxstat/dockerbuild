@@ -1,11 +1,13 @@
 package file
 
 import (
+	"errors"
 	"fmt"
 	"strings"
-	"errors"
 )
+
 var ErrNoTag = errors.New("no tag")
+
 func find(split []string, tag string) (int, error) {
 	for i, v := range split {
 		if strings.Contains(v, tag) {
