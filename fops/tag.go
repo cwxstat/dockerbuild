@@ -17,6 +17,15 @@ type tag struct {
 	dy     *uyaml.TopYaml
 }
 
+func NewTag() *tag {
+	t := &tag{
+		tagBeg: "<docb:",
+		tagEnd: "</docb:",
+		dy:     uyaml.NewDY(),
+	}
+	return t
+}
+
 func newTag() *tag {
 	t := &tag{
 		tagBeg: "<docb:",
@@ -33,6 +42,10 @@ func (t *tag) UpdateDY(dy *uyaml.TopYaml) *tag {
 
 func (t *tag) Dy() *uyaml.TopYaml {
 	return t.dy
+}
+
+func (t *tag) AddTagIfNeeded(filename string) {
+	t.addTagIfNeeded(filename)
 }
 
 func (t *tag) addTagIfNeeded(filename string) error {

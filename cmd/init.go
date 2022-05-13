@@ -18,6 +18,7 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/cwxstat/dopt/v1"
 	"github.com/spf13/cobra"
 )
 
@@ -29,7 +30,15 @@ var initCmd = &cobra.Command{
 	... longer description
 	`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("init called")
+		if len(args) == 1 {
+			v1.Init(args[0])
+		} else {
+			fmt.Printf(`
+			
+			dopt init Dockefile
+			
+			`)
+		}
 	},
 }
 
