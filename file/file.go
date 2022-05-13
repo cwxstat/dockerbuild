@@ -35,15 +35,7 @@ func (d *db) Files() []string {
 	return result
 }
 
-func (f *File) Exist(dockerFile ...string) *db {
-	d := &db{}
-	for _, v := range dockerFile {
-		data, err := os.Stat(v)
-		d.recs = append(d.recs, finfo{file: v, fi: data, err: err})
 
-	}
-	return d
-}
 
 func (f *File) Handle(dockerFiles ...string) {
 	var files []string
