@@ -3,8 +3,9 @@ package samples
 import (
 	"errors"
 
-	img "github.com/cwxstat/dockerbuild/samples/dockerimages"
 	"os"
+
+	img "github.com/cwxstat/dutil/samples/dockerimages"
 )
 
 var ErrFileExists = errors.New("sample file exists")

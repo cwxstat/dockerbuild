@@ -1,4 +1,4 @@
-module github.com/cwxstat/dockerbuild
+module github.com/cwxstat/dutil
 
 go 1.18
 

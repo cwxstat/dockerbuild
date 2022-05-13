@@ -15,7 +15,7 @@ limitations under the License.
 */
 package main
 
-import "github.com/cwxstat/dockerbuild/cmd"
+import "github.com/cwxstat/dutil/cmd"
 
 func main() {
 	cmd.Execute()
