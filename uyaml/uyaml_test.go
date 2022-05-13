@@ -49,3 +49,52 @@ func TestAddComments(t *testing.T) {
 		})
 	}
 }
+
+func TestTopYaml_NextMinor(t *testing.T) {
+	type fields struct {
+		Image   string
+		Version string
+		Config  string
+		Spec    Spec
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		wantErr bool
+	}{
+		// TODO: Add test cases.
+		{
+			name: "Version test",
+			fields: fields{
+				Image:   "",
+				Version: "v0.0.1",
+				Config:  "",
+				Spec:    Spec{},
+			},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			dy := &TopYaml{
+				Image:   tt.fields.Image,
+				Version: tt.fields.Version,
+				Config:  tt.fields.Config,
+				Spec:    tt.fields.Spec,
+			}
+			if err := dy.NextMinor(); (err != nil) != tt.wantErr {
+				t.Errorf("TopYaml.NextMinor() error = %v, wantErr %v", err, tt.wantErr)
+			}
+			if dy.Version != "v0.0.2" {
+				t.Errorf("%s wanted %s", dy.Version, "v0.0.2")
+			}
+			if err := dy.NextMajor(); (err != nil) != tt.wantErr {
+				t.Errorf("TopYaml.NextMinor() error = %v, wantErr %v", err, tt.wantErr)
+			}
+			if dy.Version != "v0.1.2" {
+				t.Errorf("%s wanted %s", dy.Version, "v0.1.2")
+			}
+
+		})
+	}
+}

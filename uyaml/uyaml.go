@@ -3,6 +3,7 @@ package uyaml
 import (
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 
@@ -54,8 +55,60 @@ func (dy *TopYaml) Comments() (string, error) {
 	if err != nil {
 		return "", err
 	}
-
 	return addComments(string(a)), nil
+}
+
+func (dy *TopYaml) UnMarshal(s string) error {
+	ts := removeComments(s)
+	err := yaml.Unmarshal([]byte(ts), dy)
+	return err
+}
+
+func (dy *TopYaml) ImageVersion(image, version string) {
+	dy.Image = image
+	dy.Version = version
+
+}
+
+func (dy *TopYaml) NextMinor() error {
+
+	if dy.Version == "" {
+		dy.Version = "v0.0.1"
+		return nil
+	}
+	// Assume v0.0.1
+	split := strings.Split(dy.Version, ".")
+	if len(split) != 3 {
+		return fmt.Errorf("version not in `v0.0.1` format: %+v", dy.Version)
+	}
+	n, err := strconv.Atoi(split[2])
+	if err != nil {
+		return err
+	}
+	n = n + 1
+	dy.Version = fmt.Sprintf("%s.%s.%d", split[0], split[1], n)
+	return nil
+
+}
+
+func (dy *TopYaml) NextMajor() error {
+
+	if dy.Version == "" {
+		dy.Version = "v0.1.0"
+		return nil
+	}
+	// Assume v0.0.1
+	split := strings.Split(dy.Version, ".")
+	if len(split) != 3 {
+		return fmt.Errorf("version not in `v0.0.1` format: %+v", dy.Version)
+	}
+	n, err := strconv.Atoi(split[1])
+	if err != nil {
+		return err
+	}
+	n = n + 1
+	dy.Version = fmt.Sprintf("%s.%d.%s", split[0], n, split[2])
+	return nil
 
 }
 
