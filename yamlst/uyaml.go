@@ -22,7 +22,7 @@ type Spec struct {
 	Timestamp  time.Time   `yaml:"timestamp,omitempty"`
 	Platform   Platform    `yaml:"platform,omitempty"`
 	DockerCMD  string      `yaml:"cmd"`
-	DockerPush string      `yaml:"cmd"`
+	DockerPush string      `yaml:"push"`
 	Files      FilesUpdate `yaml:"changes,omitempty"`
 }
 
