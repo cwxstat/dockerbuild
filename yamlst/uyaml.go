@@ -21,6 +21,7 @@ type Platform struct {
 type Spec struct {
 	Timestamp time.Time   `yaml:"timestamp,omitempty"`
 	Platform  Platform    `yaml:"platform,omitempty"`
+	DockerCMD []string    `yaml:"cmd"`
 	Files     FilesUpdate `yaml:"changes,omitempty"`
 }
 
@@ -36,8 +37,8 @@ func NewDY() *TopYaml {
 		Files: []string{"pod.yaml, dev-pod.yaml"},
 	}
 	t := &TopYaml{
-		Image:   "ubuntu",
-		Version: "v0.0.1",
+		Image:   "us-central1-docker.pkg.dev/mchirico/public/septa",
+		Version: "v0.0.5",
 		Config:  "~/.docTag/config",
 		Spec: Spec{
 			Timestamp: time.Now(),
