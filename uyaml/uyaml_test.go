@@ -41,9 +41,9 @@ func TestAddComments(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := AddComments(MyTest())
+			got := addComments(MyTest())
 			os.WriteFile("sampleComment.yaml", []byte(got), 0644)
-			got = RemoveComments(got)
+			got = removeComments(got)
 			os.WriteFile("sampleUnComment.yaml", []byte(got), 0644)
 
 		})

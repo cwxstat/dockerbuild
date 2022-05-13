@@ -30,6 +30,35 @@ type TopYaml struct {
 	Spec    Spec   `yaml:"spec,omitempty"`
 }
 
+func NewDY() *TopYaml {
+	fu := FilesUpdate{
+		Files: []string{"pod.yaml, dev-pod.yaml"},
+	}
+	t := &TopYaml{
+		Image:   "ubuntu",
+		Version: "v0.0.1",
+		Config:  "~/.docTag/config",
+		Spec: Spec{
+			Timestamp: time.Now(),
+			Platform: Platform{
+				OS: "linux/amd64",
+			},
+			Files: fu,
+		},
+	}
+	return t
+}
+
+func (dy *TopYaml) Comments() (string, error) {
+	a, err := yaml.Marshal(dy)
+	if err != nil {
+		return "", err
+	}
+
+	return addComments(string(a)), nil
+
+}
+
 func MyTest() string {
 
 	fu := FilesUpdate{
@@ -56,7 +85,7 @@ func MyTest() string {
 	return ""
 }
 
-func AddComments(s string) string {
+func addComments(s string) string {
 	split := strings.Split(s, "\n")
 	newString := ""
 	sep := ""
@@ -72,7 +101,7 @@ func AddComments(s string) string {
 	return newString
 }
 
-func RemoveComments(s string) string {
+func removeComments(s string) string {
 	split := strings.Split(s, "\n")
 	newString := ""
 	sep := ""
