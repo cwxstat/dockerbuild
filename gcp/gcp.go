@@ -77,3 +77,24 @@ func Files(parent string) ([]string, error) {
 
 	return out, nil
 }
+
+// projects/mchirico/locations/us-central1/repositories/public/packages/septa/tags/v0.0.1
+func Delete(name string) error {
+	ctx := context.Background()
+	c, err := artifactregistry.NewClient(ctx)
+	if err != nil {
+		// TODO: Handle error.
+		return ErrNewClient
+	}
+	defer c.Close()
+
+	req := &artifactregistrypb.DeleteTagRequest{
+		Name: name,
+	}
+	err = c.DeleteTag(ctx, req)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
