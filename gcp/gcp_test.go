@@ -84,6 +84,9 @@ func TestDelete(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if err := Delete(tt.args.name); (err != nil) != tt.wantErr {
+				if err == ErrNewClient {
+					return
+				}
 				if st, ok := status.FromError(err); ok {
 
 					if err == ErrNewClient {
