@@ -61,3 +61,30 @@ func TestFiles(t *testing.T) {
 		})
 	}
 }
+
+func TestDelete(t *testing.T) {
+	type args struct {
+		name string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+	}{
+		// TODO: Add test cases.
+		{
+			name: "",
+			args: args{
+				name: "projects/mchirico/locations/us-central1/repositories/public/packages/septa/tags/test",
+			},
+			wantErr: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if err := Delete(tt.args.name); (err != nil) != tt.wantErr {
+				t.Errorf("Delete() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}
