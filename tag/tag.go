@@ -4,6 +4,7 @@ import (
 	"errors"
 	"os"
 
+	"github.com/cwxstat/dopt/constants"
 	"github.com/cwxstat/dopt/file"
 	"github.com/cwxstat/dopt/yamlst"
 )
@@ -19,8 +20,8 @@ type tag struct {
 
 func NewTag() *tag {
 	t := &tag{
-		tagBeg: "<docb:",
-		tagEnd: "</docb:",
+		tagBeg: constants.TAG_BEGIN,
+		tagEnd: constants.TAG_END,
 		dy:     yamlst.NewDY(),
 	}
 	return t
@@ -28,8 +29,8 @@ func NewTag() *tag {
 
 func newTag() *tag {
 	t := &tag{
-		tagBeg: "<docb:",
-		tagEnd: "</docb:",
+		tagBeg: constants.TAG_BEGIN,
+		tagEnd: constants.TAG_END,
 		dy:     yamlst.NewDY(),
 	}
 	return t
