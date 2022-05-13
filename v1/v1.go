@@ -12,5 +12,4 @@ func Init(file string) {
 func Update(file string) {
 	t := tag.NewTag()
 	t.Update(file)
-
 }

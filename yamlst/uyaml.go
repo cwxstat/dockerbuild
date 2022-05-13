@@ -19,9 +19,11 @@ type Platform struct {
 }
 
 type Spec struct {
-	Timestamp time.Time   `yaml:"timestamp,omitempty"`
-	Platform  Platform    `yaml:"platform,omitempty"`
-	Files     FilesUpdate `yaml:"changes,omitempty"`
+	Timestamp  time.Time   `yaml:"timestamp,omitempty"`
+	Platform   Platform    `yaml:"platform,omitempty"`
+	DockerCMD  string      `yaml:"cmd"`
+	DockerPush string      `yaml:"push"`
+	Files      FilesUpdate `yaml:"changes,omitempty"`
 }
 
 type TopYaml struct {
@@ -36,11 +38,13 @@ func NewDY() *TopYaml {
 		Files: []string{"pod.yaml, dev-pod.yaml"},
 	}
 	t := &TopYaml{
-		Image:   "ubuntu",
-		Version: "v0.0.1",
+		Image:   "us-central1-docker.pkg.dev/mchirico/public/septa",
+		Version: "v0.0.5",
 		Config:  "~/.docTag/config",
 		Spec: Spec{
-			Timestamp: time.Now(),
+			Timestamp:  time.Now(),
+			DockerCMD:  "docker buildx build --no-cache --progress=plain --platform linux/amd64 --no-cache -t us-central1-docker.pkg.dev/mchirico/public/septa:v0.0.5 -f Dockerfile .",
+			DockerPush: "docker push us-central1-docker.pkg.dev/mchirico/public/septa:v0.0.5",
 			Platform: Platform{
 				OS: "linux/amd64",
 			},
