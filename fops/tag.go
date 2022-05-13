@@ -31,7 +31,7 @@ func (t *tag) UpdateDY(dy *uyaml.TopYaml) *tag {
 	return t
 }
 
-func (t *tag)Dy() *uyaml.TopYaml {
+func (t *tag) Dy() *uyaml.TopYaml {
 	return t.dy
 }
 

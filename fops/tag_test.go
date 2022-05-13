@@ -75,8 +75,6 @@ func Test_tag_writeTag(t *testing.T) {
 				t.Errorf("tag.writeTag() error = %v, wantErr %v", dy.Version, "v0.0.10")
 			}
 
-
-
 		})
 	}
 }

@@ -6,7 +6,7 @@ import (
 )
 
 func TestCreateSample(t *testing.T) {
-	
+
 	type args struct {
 		file string
 	}
