@@ -31,6 +31,7 @@ type TopYaml struct {
 	Image   string `yaml:"image"`
 	Version string `yaml:"version"`
 	Config  string `yaml:"local-config,omitempty"`
+	Git     string `yaml:"dopt-git,omitempty"`
 	Spec    Spec   `yaml:"spec,omitempty"`
 }
 
@@ -42,6 +43,7 @@ func NewDY() *TopYaml {
 		Image:   "us-central1-docker.pkg.dev/mchirico/public/septa",
 		Version: "v0.0.5",
 		Config:  "~/.docTag/config",
+		Git:     "~/.docTag/dopt-git",
 		Spec: Spec{
 			Timestamp:  time.Now(),
 			DockerCMD:  "docker buildx build --no-cache --progress=plain --platform linux/amd64 --no-cache -t us-central1-docker.pkg.dev/mchirico/public/septa:v0.0.5 -f Dockerfile .",
