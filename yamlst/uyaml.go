@@ -45,7 +45,7 @@ func NewDY() *TopYaml {
 		Spec: Spec{
 			Timestamp:  time.Now(),
 			DockerCMD:  "docker buildx build --no-cache --progress=plain --platform linux/amd64 --no-cache -t us-central1-docker.pkg.dev/mchirico/public/septa:v0.0.5 -f Dockerfile .",
-			LastCMD: "docker buildx build --no-cache --progress=plain --platform linux/amd64 --no-cache -t us-central1-docker.pkg.dev/mchirico/public/septa:v0.0.4 -f Dockerfile .",
+			LastCMD:    "docker buildx build --no-cache --progress=plain --platform linux/amd64 --no-cache -t us-central1-docker.pkg.dev/mchirico/public/septa:v0.0.4 -f Dockerfile .",
 			DockerPush: "docker push us-central1-docker.pkg.dev/mchirico/public/septa:v0.0.5",
 			Platform: Platform{
 				OS: "linux/amd64",

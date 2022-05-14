@@ -5,6 +5,15 @@ import (
 	"os"
 )
 
+func CreateHomeDir(dir string) error {
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return err
+	}
+	err = os.Mkdir(home+"/"+dir, 0755)
+	return err
+}
+
 func Read(file string) (string, error) {
 	dat, err := os.ReadFile(file)
 	if err != nil {

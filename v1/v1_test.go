@@ -29,6 +29,5 @@ func TestInit(t *testing.T) {
 			Init(tt.args.file)
 		})
 
-		
 	}
 }
