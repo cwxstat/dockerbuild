@@ -4,6 +4,11 @@ import (
 	"testing"
 )
 
+func TestBash(t *testing.T) {
+	cmd := "ls -l"
+	Bash(cmd)
+}
+
 func TestExample(t *testing.T) {
 	tests := []struct {
 		name string

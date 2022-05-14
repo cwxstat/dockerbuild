@@ -27,6 +27,13 @@ ENTRYPOINT ["/bin/project"]
 `)
 }
 
+func goMod() []byte {
+	return []byte(`module example.com/m/v2
+
+	go 1.18
+	`)
+}
+
 func goProg() []byte {
 	return []byte(`
 package main
