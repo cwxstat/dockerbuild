@@ -22,7 +22,6 @@ func TestCreateTestEnv(t *testing.T) {
 		return
 	}
 
-	tag.ImageVersion("doptest","v0.0.1")
-
+	tag.ImageVersion("doptest", "v0.0.1")
 
 }
