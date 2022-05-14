@@ -7,6 +7,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/cwxstat/dopt/constants"
 	"gopkg.in/yaml.v2"
 )
 
@@ -84,6 +85,7 @@ func (dy *TopYaml) UnMarshal(s string) error {
 func (dy *TopYaml) ImageVersion(image, version string) {
 	dy.Image = image
 	dy.Version = version
+	dy.Spec.DockerCMD = fmt.Sprintf(constants.DOCKER_DFT_CMD, dy.Image+":"+dy.Version)
 
 }
 

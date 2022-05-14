@@ -13,9 +13,10 @@ var ErrReadTag = errors.New("read tag error")
 var ErrWriteTag = errors.New("write tag error")
 
 type tag struct {
-	tagBeg string
-	tagEnd string
-	dy     *yamlst.TopYaml
+	tagBeg   string
+	tagEnd   string
+	filename string
+	dy       *yamlst.TopYaml
 }
 
 func NewTag() *tag {
@@ -47,9 +48,11 @@ func (t *tag) Dy() *yamlst.TopYaml {
 
 func (t *tag) AddTagIfNeeded(filename string) {
 	t.addTagIfNeeded(filename)
+	t.filename = filename
 }
 
 func (t *tag) addTagIfNeeded(filename string) error {
+	t.filename = filename
 	s, err := file.Read(filename)
 	if err != nil {
 		return err
@@ -70,13 +73,27 @@ func (t *tag) addTagIfNeeded(filename string) error {
 }
 
 func (t *tag) Update(filename string) {
+	t.filename = filename
 	t.readTag(filename)
 	t.dy.NextMinor()
 	t.writeTag(filename)
+
+}
+
+func (t *tag) Read(filename string) error {
+	t.filename = filename
+	return t.readTag(filename)
+}
+
+func (t *tag) ImageVersion(image, version string) error {
+	t.dy.ImageVersion(image, version)
+	t.writeTag(t.filename)
+	return nil
+
 }
 
 func (t *tag) readTag(filename string) error {
-
+	t.filename = filename
 	s, err := file.Read(filename)
 	if err != nil {
 		return err
@@ -95,6 +112,7 @@ func (t *tag) readTag(filename string) error {
 }
 
 func (t *tag) writeTag(filename string) error {
+	t.filename = filename
 	s, err := file.Read(filename)
 	if err != nil {
 		return err
