@@ -1,4 +1,4 @@
-package main
+package dockersdk
 
 import (
 	"bufio"
@@ -50,7 +50,7 @@ func NewDocker() (*Docker, error) {
 }
 
 // dopt/
-func (d *Docker) Directory(dir string) *Docker {
+func (d *Docker) Tar(dir string) *Docker {
 	d.tar = dir
 	return d
 }
