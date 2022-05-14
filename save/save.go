@@ -1,11 +1,10 @@
 package save
 
 import (
+	"errors"
 	"github.com/cwxstat/dopt/file"
 	"path/filepath"
-	"errors"
 	"strings"
-	
 
 	"github.com/go-git/go-billy/v5/osfs"
 	"github.com/go-git/go-git/v5"
@@ -16,6 +15,7 @@ import (
 )
 
 var ErrCommit = errors.New("no commit")
+
 func Init(gitPath string) (*git.Repository, error) {
 	worktreeFS := osfs.New(gitPath)
 	gitDirFS := osfs.New(filepath.Join(gitPath, ".git"))
@@ -24,7 +24,7 @@ func Init(gitPath string) (*git.Repository, error) {
 }
 
 func FileSaveCommit(repo *git.Repository, repoDir, fileSource, fileDest string) error {
-	
+
 	file.Copy(fileSource, fileDest)
 	r, err := git.PlainOpen(repoDir)
 	if err != nil {
@@ -35,7 +35,7 @@ func FileSaveCommit(repo *git.Repository, repoDir, fileSource, fileDest string) 
 		return err
 	}
 
-	fileCommit := strings.Replace(fileDest,repoDir +"/","",1)
+	fileCommit := strings.Replace(fileDest, repoDir+"/", "", 1)
 	if fileCommit == "" {
 		return ErrCommit
 	}
