@@ -6,6 +6,8 @@ package e2e
 
 import (
 	"testing"
+
+	"github.com/cwxstat/dopt/tag"
 )
 
 func TestCreateTestEnv(t *testing.T) {
@@ -14,5 +16,12 @@ func TestCreateTestEnv(t *testing.T) {
 	if Setup(testDir) != nil {
 		return
 	}
+	tag := tag.NewTag()
+	err := tag.Read(testDir + "/Dockerfile")
+	if err != nil {
+		return
+	}
+
+	tag.ImageVersion("doptest", "v0.0.1")
 
 }
