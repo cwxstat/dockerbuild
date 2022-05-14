@@ -4,7 +4,6 @@ import (
 	"errors"
 	"github.com/cwxstat/dopt/file"
 	"path/filepath"
-	"strings"
 
 	"github.com/go-git/go-billy/v5/osfs"
 	"github.com/go-git/go-git/v5"
@@ -23,9 +22,13 @@ func Init(gitPath string) (*git.Repository, error) {
 	return repo, err
 }
 
-func FileSaveCommit(repo *git.Repository, repoDir, fileSource, fileDest string) error {
+func FileSaveCommit(repo *git.Repository, repoDir, fileSource string) error {
 
-	file.Copy(fileSource, fileDest)
+	dirFileToCommit, err := file.CopyR(fileSource, repoDir)
+	if err != nil {
+		return err
+	}
+
 	r, err := git.PlainOpen(repoDir)
 	if err != nil {
 		return err
@@ -35,11 +38,7 @@ func FileSaveCommit(repo *git.Repository, repoDir, fileSource, fileDest string) 
 		return err
 	}
 
-	fileCommit := strings.Replace(fileDest, repoDir+"/", "", 1)
-	if fileCommit == "" {
-		return ErrCommit
-	}
-	_, err = w.Add(fileCommit)
+	_, err = w.Add(dirFileToCommit)
 	if err != nil {
 		return err
 	}
