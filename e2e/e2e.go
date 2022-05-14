@@ -40,6 +40,10 @@ func createFiles(fileDest string) error {
 	if err != nil {
 		return err
 	}
+	err = os.WriteFile(fileDest+"/go.mod", goMod(), 0644)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 func CreateTestEnv(dir string) error {
