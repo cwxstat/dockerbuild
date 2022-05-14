@@ -1,9 +1,33 @@
 package file
 
 import (
+	"io/ioutil"
 	"log"
 	"os"
 )
+
+func CreateHomeDir(dir string) error {
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return err
+	}
+	err = os.Mkdir(home+"/"+dir, 0755)
+	return err
+}
+
+func Copy(sourceFile, destinationFile string) error {
+	input, err := ioutil.ReadFile(sourceFile)
+	if err != nil {
+		return err
+	}
+
+	err = ioutil.WriteFile(destinationFile, input, 0644)
+	if err != nil {
+
+		return err
+	}
+	return nil
+}
 
 func Read(file string) (string, error) {
 	dat, err := os.ReadFile(file)
