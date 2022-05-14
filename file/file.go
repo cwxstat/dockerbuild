@@ -4,6 +4,8 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"path/filepath"
+	"strings"
 )
 
 func CreateHomeDir(dir string) error {
@@ -27,6 +29,23 @@ func Copy(sourceFile, destinationFile string) error {
 		return err
 	}
 	return nil
+}
+
+func CopyR(sourceFile, destinationDir string) (string, error) {
+	dir, file := filepath.Split(sourceFile)
+	clean := strings.ReplaceAll(dir, "../", "")
+	clean = strings.ReplaceAll(clean, "//", "/")
+	clean = strings.ReplaceAll(clean, "./", "")
+	destDir := destinationDir + "/" + clean
+	err := os.MkdirAll(destDir, os.ModePerm)
+	if err != nil {
+		return "", err
+	}
+	target := destDir + file
+	target = strings.ReplaceAll(target, "//", "/")
+	err = Copy(sourceFile, target)
+	return clean, err
+
 }
 
 func Read(file string) (string, error) {

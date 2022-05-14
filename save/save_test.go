@@ -12,15 +12,12 @@ func TestInit(t *testing.T) {
 	if err != nil {
 		t.FailNow()
 	}
-	err = FileSaveCommit(repo, repoDir, "./save.go", repoDir+"/"+"save.go")
+	err = FileSaveCommit(repo, repoDir, "./save.go")
 	if err != nil {
 		t.FailNow()
 	}
-	err = os.MkdirAll(repoDir+"/1/2", os.ModePerm)
-	if err != nil {
-		t.FailNow()
-	}
-	err = FileSaveCommit(repo, repoDir, "./save.go", repoDir+"/1/2/"+"save.go")
+
+	err = FileSaveCommit(repo, repoDir, "../constants/constants.go")
 	if err != nil {
 		t.FailNow()
 	}
