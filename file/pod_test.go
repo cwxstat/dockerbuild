@@ -14,9 +14,13 @@ func TestFindImages(t *testing.T) {
 		t.FailNow()
 	}
 
-	_, err = Pod("./testDeployment.yaml")
+	pod, err = Pod("./testDeployment.yaml")
 	if err != nil {
 		t.Fatalf("deployment: %v", err)
+	}
+
+	if pod.Name != "nginx-deployment" {
+		t.Fatalf("pod name from deployment")
 	}
 
 }
