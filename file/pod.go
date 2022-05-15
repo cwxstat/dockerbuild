@@ -1,58 +1,43 @@
 package file
 
 import (
-	"gopkg.in/yaml.v2"
+	"os"
+
+	v1 "k8s.io/api/core/v1"
+	"k8s.io/apimachinery/pkg/util/yaml"
+	"k8s.io/api/extensions/v1beta1"
 )
 
-type Pod struct {
-	APIVersion string `yaml:"apiVersion"`
-	Kind       string `yaml:"kind"`
-	Metadata   struct {
-		Name   string `yaml:"name"`
-		Labels struct {
-			AppKubernetesIoName string `yaml:"app.kubernetes.io/name"`
-		} `yaml:"labels"`
-	} `yaml:"metadata"`
-	Spec struct {
-		Volumes []struct {
-			Name                  string `yaml:"name"`
-			PersistentVolumeClaim struct {
-				ClaimName string `yaml:"claimName"`
-				ReadOnly  bool   `yaml:"readOnly"`
-			} `yaml:"persistentVolumeClaim"`
-		} `yaml:"volumes"`
-		Containers []struct {
-			Name  string `yaml:"name"`
-			Image string `yaml:"image"`
-			Env   []struct {
-				Name      string `yaml:"name"`
-				ValueFrom struct {
-					SecretKeyRef struct {
-						Name string `yaml:"name"`
-						Key  string `yaml:"key"`
-					} `yaml:"secretKeyRef"`
-				} `yaml:"valueFrom"`
-			} `yaml:"env"`
-			VolumeMounts []struct {
-				MountPath string `yaml:"mountPath"`
-				Name      string `yaml:"name"`
-			} `yaml:"volumeMounts"`
-		} `yaml:"containers"`
-		RestartPolicy string `yaml:"restartPolicy"`
-	} `yaml:"spec"`
+func Pod(filename string) (*v1.Pod, error) {
+
+	f, err := os.Open(filename)
+	if err != nil {
+		return nil, err
+	}
+	defer f.Close()
+
+	pod := &v1.Pod{}
+	if err := yaml.NewYAMLOrJSONDecoder(f, 4096).Decode(pod); err != nil {
+		return nil, err
+	}
+
+	return pod, nil
+
 }
 
-// Ref: https://go.dev/play/p/NTM3D2NGkry
+func Deployment(filename string) (*v1beta1.Deployment, error) {
 
-func FindImages(data string) ([]string, error) {
-	var p Pod
-	out := []string{}
-	err := yaml.Unmarshal([]byte(data), &p)
+	f, err := os.Open(filename)
 	if err != nil {
-		return out, err
+		return nil, err
 	}
-	for _, v := range p.Spec.Containers {
-		out = append(out, v.Image)
+	defer f.Close()
+
+	deployment := &v1beta1.Deployment{}
+	if err := yaml.NewYAMLOrJSONDecoder(f, 4096).Decode(deployment); err != nil {
+		return nil, err
 	}
-	return out, nil
+
+	return deployment, nil
+
 }
