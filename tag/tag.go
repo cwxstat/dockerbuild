@@ -43,8 +43,6 @@ func (t *tag) UpdateDY(dy *yamlst.TopYaml) *tag {
 	return t
 }
 
-
-
 func (t *tag) AddTagIfNeeded(filename string) {
 	t.addTagIfNeeded(filename)
 	t.filename = filename
