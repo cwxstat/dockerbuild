@@ -11,6 +11,8 @@ import (
 
 	"github.com/docker/docker/api/types"
 
+	"encoding/base64"
+	cliconfig "github.com/docker/cli/cli/config"
 	"github.com/docker/docker/client"
 	"github.com/docker/docker/pkg/archive"
 )
@@ -86,7 +88,7 @@ func (d *Docker) ImageBuild() error {
 
 	opts := types.ImageBuildOptions{
 		Dockerfile: d.dockerfile,
-		Tags:       []string{d.image + d.version},
+		Tags:       []string{d.image + ":" + d.version},
 		NoCache:    true,
 		Platform:   d.platform,
 		Remove:     true,
@@ -104,6 +106,43 @@ func (d *Docker) ImageBuild() error {
 	}
 
 	return nil
+}
+
+func (d *Docker) Push() error {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*120)
+	defer cancel()
+
+	cfg, err := cliconfig.Load("")
+	if err != nil {
+		return err
+	}
+
+	a, _ := cfg.GetAuthConfig("us-central1-docker.pkg.dev")
+	ac := types.AuthConfig(a)
+
+	var authConfig = types.AuthConfig{
+		Username: ac.Username,
+		Password: ac.Password,
+	}
+	authConfigBytes, _ := json.Marshal(authConfig)
+	authConfigEncoded := base64.URLEncoding.EncodeToString(authConfigBytes)
+
+	tag := d.image + ":" + d.version
+	opts := types.ImagePushOptions{RegistryAuth: authConfigEncoded}
+	rd, err := d.cli.ImagePush(ctx, tag, opts)
+	if err != nil {
+		return err
+	}
+
+	defer rd.Close()
+
+	err = print(rd)
+	if err != nil {
+		return err
+	}
+
+	return nil
+
 }
 
 func print(rd io.Reader) error {

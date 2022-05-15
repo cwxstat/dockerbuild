@@ -45,5 +45,6 @@ func TestCreateTestEnv(t *testing.T) {
 	if err != nil {
 		t.Errorf("can't build image")
 	}
+	d.Push()
 
 }
