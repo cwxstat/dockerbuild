@@ -33,6 +33,7 @@ func Deployment(filename string) (*v1beta1.Deployment, error) {
 	}
 	defer f.Close()
 
+	
 	deployment := &v1beta1.Deployment{}
 	if err := yaml.NewYAMLOrJSONDecoder(f, 4096).Decode(deployment); err != nil {
 		return nil, err
