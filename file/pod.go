@@ -4,8 +4,8 @@ import (
 	"os"
 
 	v1 "k8s.io/api/core/v1"
-	"k8s.io/apimachinery/pkg/util/yaml"
 	"k8s.io/api/extensions/v1beta1"
+	"k8s.io/apimachinery/pkg/util/yaml"
 )
 
 func Pod(filename string) (*v1.Pod, error) {
