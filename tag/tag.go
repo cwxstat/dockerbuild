@@ -16,7 +16,8 @@ type tag struct {
 	tagBeg   string
 	tagEnd   string
 	filename string
-	dy       *yamlst.TopYaml
+	//dy       *yamlst.TopYaml
+	dy yaml
 }
 
 func NewTag() *tag {
@@ -40,10 +41,6 @@ func newTag() *tag {
 func (t *tag) UpdateDY(dy *yamlst.TopYaml) *tag {
 	t.dy = dy
 	return t
-}
-
-func (t *tag) Dy() *yamlst.TopYaml {
-	return t.dy
 }
 
 func (t *tag) AddTagIfNeeded(filename string) {
