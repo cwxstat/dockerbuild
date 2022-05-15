@@ -4,8 +4,8 @@ import (
 	"os"
 
 	v1 "k8s.io/api/core/v1"
-	"k8s.io/api/extensions/v1beta1"
 	"k8s.io/apimachinery/pkg/util/yaml"
+	"k8s.io/kubernetes/pkg/apis/apps"
 )
 
 func Pod(filename string) (*v1.Pod, error) {
@@ -25,7 +25,7 @@ func Pod(filename string) (*v1.Pod, error) {
 
 }
 
-func Deployment(filename string) (*v1beta1.Deployment, error) {
+func Deployment(filename string) (*apps.Deployment, error) {
 
 	f, err := os.Open(filename)
 	if err != nil {
@@ -33,7 +33,7 @@ func Deployment(filename string) (*v1beta1.Deployment, error) {
 	}
 	defer f.Close()
 
-	deployment := &v1beta1.Deployment{}
+	deployment := &apps.Deployment{}
 	if err := yaml.NewYAMLOrJSONDecoder(f, 4096).Decode(deployment); err != nil {
 		return nil, err
 	}
