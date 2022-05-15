@@ -4,6 +4,7 @@ go 1.18
 
 require (
 	cloud.google.com/go/artifactregistry v1.3.0
+	github.com/docker/cli v0.0.0-20191017083524-a8ff7f821017
 	github.com/docker/docker v20.10.16+incompatible
 	github.com/go-git/go-billy/v5 v5.3.1
 	github.com/go-git/go-git/v5 v5.4.2
@@ -26,6 +27,7 @@ require (
 	github.com/containerd/containerd v1.6.4 // indirect
 	github.com/containerd/continuity v0.3.0 // indirect
 	github.com/docker/distribution v2.8.1+incompatible // indirect
+	github.com/docker/docker-credential-helpers v0.6.3 // indirect
 	github.com/docker/go-connections v0.4.0 // indirect
 	github.com/docker/go-units v0.4.0 // indirect
 	github.com/emirpasic/gods v1.12.0 // indirect
