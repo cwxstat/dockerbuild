@@ -52,28 +52,14 @@ func Test_tag_writeTag(t *testing.T) {
 				t.Errorf("tag.writeTag() error = %v, wantErr %v", err, tt.wantErr)
 			}
 
+			
 			dy.NextMinor()
 			dy.NextMinor()
 			tr.UpdateDY(dy)
 			if err := tr.writeTag(tt.args.filename); (err != nil) != tt.wantErr {
 				t.Errorf("tag.writeTag() error = %v, wantErr %v", err, tt.wantErr)
 			}
-			dy = tr.Dy()
-			if dy.Version != "v0.0.4" {
-				t.Errorf("tag.writeTag() error = %v, wantErr %v", dy.Version, "v0.0.4")
-			}
-			dy.Version = "v0.0.10"
-			tr.UpdateDY(dy)
-			if err := tr.writeTag(tt.args.filename); (err != nil) != tt.wantErr {
-				t.Errorf("tag.writeTag() error = %v, wantErr %v", err, tt.wantErr)
-			}
-			if err := tr.readTag(tt.args.filename); (err != nil) != tt.wantErr {
-				t.Errorf("tag.writeTag() error = %v, wantErr %v", err, tt.wantErr)
-			}
-			dy = tr.Dy()
-			if dy.Version != "v0.0.10" {
-				t.Errorf("tag.writeTag() error = %v, wantErr %v", dy.Version, "v0.0.10")
-			}
+			
 
 		})
 	}
