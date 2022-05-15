@@ -117,6 +117,7 @@ func (d *Docker) Push() error {
 		return err
 	}
 
+	// FIXME: (mmc) -- take this off the tag
 	a, _ := cfg.GetAuthConfig("us-central1-docker.pkg.dev")
 	ac := types.AuthConfig(a)
 
